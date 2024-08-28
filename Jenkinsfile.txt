@@ -13,8 +13,7 @@ pipeline {
                 echo "Build started!"
                 echo "Fetching source code from the directory: ${env.DIRECTORY_PATH}"
                 echo "Compiling the code and packaging using Maven"
-                // Example Maven build command
-                sh 'mvn clean package'
+                // Example Maven build command sh 'mvn clean package'
                 echo "Build completed!"
             }
             post {
@@ -34,8 +33,7 @@ pipeline {
         stage('Unit and Integration Tests') {
             steps {
                 echo "Running unit and integration tests!"
-                // Example test command
-                sh 'mvn test'
+                // Example test command sh 'mvn test'
                 echo "Testing completed!"
             }
             post {
@@ -52,8 +50,7 @@ pipeline {
         stage('Code Analysis') {
             steps {
                 echo "Running code quality analysis using SonarQube!"
-                // Example SonarQube analysis command
-                sh 'mvn sonar:sonar'
+                // Example SonarQube analysis command sh 'mvn sonar:sonar'
                 echo "Code analysis completed!"
             }
             post {
@@ -70,8 +67,7 @@ pipeline {
         stage('Security Scan') {
             steps {
                 echo "Running security scan using OWASP Dependency-Check!"
-                // Example security scan command
-                sh 'mvn dependency-check:check'
+                // Example security scan command sh 'mvn dependency-check:check'
                 echo "Security scan completed!"
             }
             post {
@@ -88,8 +84,7 @@ pipeline {
         stage('Deploy to Staging') {
             steps {
                 echo "Deploying application to staging environment: ${env.TESTING_ENVIRONMENT}"
-                // Example deployment command
-                sh 'scp target/*.war user@staging-server:/path/to/deploy'
+                // Example deployment command sh 'scp target/*.war user@staging-server:/path/to/deploy'
                 echo "Deployment to staging completed!"
             }
         }
@@ -97,8 +92,7 @@ pipeline {
         stage('Integration Tests on Staging') {
             steps {
                 echo "Running integration tests on staging environment!"
-                // Example command for integration tests on staging
-                sh 'curl -X GET http://staging-server/api/test'
+                // Example command for integration tests on staging sh 'curl -X GET http://staging-server/api/test'
                 echo "Integration testing on staging completed!"
             }
         }
@@ -106,8 +100,7 @@ pipeline {
         stage('Deploy to Production') {
             steps {
                 echo "Deploying application to production environment: ${env.PRODUCTION_ENVIRONMENT}"
-                // Example deployment command
-                sh 'scp target/*.war user@production-server:/path/to/deploy'
+                // Example deployment command sh 'scp target/*.war user@production-server:/path/to/deploy'
                 echo "Deployment to production completed!"
             }
         }
