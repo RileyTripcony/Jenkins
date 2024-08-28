@@ -8,7 +8,7 @@ pipeline {
     }
     
     stages {
-        stage('Build') {
+       stage('Build') {
             steps {
                 echo "Build started!"
                 echo "Fetching source code from the directory: ${env.DIRECTORY_PATH}"
@@ -19,14 +19,14 @@ pipeline {
             }
             post {
                 success {
-                    mail to: "triptripcony@gmail.com",
-                    subject: "Build Status: SUCCESS",
-                    body: "The build stage was successful."
+                    emailext to: "triptripcony@gmail.com",
+                             subject: "Build Status: SUCCESS",
+                             body: "The build stage was successful."
                 }
                 failure {
-                    mail to: "triptripcony@gmail.com",
-                    subject: "Build Status: FAILURE",
-                    body: "The build stage failed."
+                    emailext to: "triptripcony@gmail.com",
+                             subject: "Build Status: FAILURE",
+                             body: "The build stage failed."
                 }
             }
         }
@@ -40,10 +40,11 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                    subject: "Test Status",
-                    body: "Unit and integration tests completed.",
-                    attachLog: true
+                    emailext to: "triptripcony@gmail.com",
+                             subject: "Test Status",
+                             body: "Unit and integration tests completed. Please check the logs.",
+                             attachmentsPattern: '**/target/surefire-reports/*.xml',
+                             mimeType: 'text/plain'
                 }
             }
         }
@@ -57,10 +58,11 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                    subject: "Code Analysis Status",
-                    body: "Code analysis completed.",
-                    attachLog: true
+                    emailext to: "triptripcony@gmail.com",
+                             subject: "Code Analysis Status",
+                             body: "Code analysis completed. Please check the logs.",
+                             attachmentsPattern: '**/sonar-reports/*.xml',
+                             mimeType: 'text/plain'
                 }
             }
         }
@@ -74,10 +76,11 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                    subject: "Security Scan Status",
-                    body: "Security scan completed.",
-                    attachLog: true
+                    emailext to: "triptripcony@gmail.com",
+                             subject: "Security Scan Status",
+                             body: "Security scan completed. Please check the logs.",
+                             attachmentsPattern: '**/dependency-check-report.xml',
+                             mimeType: 'text/plain'
                 }
             }
         }
