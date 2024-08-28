@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    
+    environment {
+        DIRECTORY_PATH = 'C:\\Users\\Riley\\JenkinsGithub\\jenkinsfile.txt'
+        TESTING_ENVIRONMENT = 'Jenkins'
+        PRODUCTION_ENVIRONMENT = 'Riley'
+    }
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo "Build started and completed!"
+                echo "Fetch the source code from the directory path specified by the environment variable: ${env.DIRECTORY_PATH}"
+                echo "Compile the code and generate any necessary artifacts"
+            }
+            post{
+                success{
+                    mail to: "triptripcony@gmail.com",
+                    subject: "Build Status Email",
+                    body: "Build was successful!"
+                }
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                echo "Test started and completed!"
+                echo "Unit tests"
+                echo "Integration tests"
+            }
+        }
+        
+        stage('Code Quality Check') {
+            steps {
+                echo "Code quality check started and completed!"
+                echo "Check the quality of the code"
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                echo "Deployment started and completed!"
+                echo "Deploy the application to the testing environment specified by the environment variable: ${env.TESTING_ENVIRONMENT}"
+            }
+        }
+        
+        stage('Approval') {
+            steps {
+                echo "Approval started!"
+                sleep 10
+                echo "Approval completed!"
+            }
+        }
+        
+        stage('Deploy to Production') {
+            steps {
+                echo "Deployment to Production started and completed!"
+                echo "Deploy the code to the production environment: ${env.PRODUCTION_ENVIRONMENT}"
+            }
+        }
+    }
+}
