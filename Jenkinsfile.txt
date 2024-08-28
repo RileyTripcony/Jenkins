@@ -30,8 +30,6 @@ pipeline {
             post {
                 always {
                     script {
-                        // Archive the logs from this stage
-                        archiveArtifacts artifacts: '**/target/surefire-reports/*.txt', allowEmptyArchive: true
                         // Send email with log attachment
                         emailext(
                             to: "triptripcony@gmail.com",
@@ -54,9 +52,12 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                         subject: "Code Analysis Status",
-                         body: "Code analysis completed with status: ${currentBuild.currentResult}"
+                    emailext(
+                        to: "triptripcony@gmail.com",
+                        subject: "Code Analysis Status",
+                        body: "Code analysis completed with status: ${currentBuild.currentResult}",
+                        attachLog: true
+                    )
                 }
             }
         }
@@ -71,9 +72,12 @@ pipeline {
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                         subject: "Security Scan Status",
-                         body: "Security scan completed with status: ${currentBuild.currentResult}"
+                    emailext(
+                        to: "triptripcony@gmail.com",
+                        subject: "Security Scan Status",
+                        body: "Security scan completed with status: ${currentBuild.currentResult}",
+                        attachLog: true
+                    )
                 }
             }
         }
@@ -105,3 +109,4 @@ pipeline {
         }
     }
 }
+
