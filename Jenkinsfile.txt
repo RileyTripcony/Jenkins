@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        GITHUB_REPO_URL = 'https://github.com/RileyTripcony/JenkinsPipelineDemo.git'
-        TESTING_ENVIRONMENT = 'Jenkins'
+        GITHUB_REPO_URL = 'https://github.com/RileyTripcony/Jenkins.git'
+        TESTING_ENVIRONMENT = '6.1'
         PRODUCTION_ENVIRONMENT = 'ProductionServer'
     }
     
@@ -14,24 +14,32 @@ pipeline {
                 echo "Tool: Maven"
                 echo "Fetching source code from ${env.GITHUB_REPO_URL}"
                 echo "Compiling the code and packaging..."
-                // Example build command (not executed)
-                // sh 'mvn clean package'
+                // Example build command
+                // 'mvn clean'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
                 echo "Stage 2: Unit and Integration Tests - Running unit and integration tests."
-                echo "Tools: JUnit for unit testing, TestNG for integration testing"
+                echo "Tool: Maven"
                 echo "Executing test suites..."
-                // Example test command (not executed)
+                // Example test command
                 // sh 'mvn test'
             }
             post {
                 always {
-                    mail to: "triptripcony@gmail.com",
-                         subject: "Test Stage Status",
-                         body: "Unit and integration tests completed with status: ${currentBuild.currentResult}"
+                    script {
+                        // Archive the logs from this stage
+                        archiveArtifacts artifacts: '**/target/surefire-reports/*.txt', allowEmptyArchive: true
+                        // Send email with log attachment
+                        emailext(
+                            to: "triptripcony@gmail.com",
+                            subject: "Test Stage Status - ${currentBuild.currentResult}",
+                            body: "Unit and integration tests completed with status: ${currentBuild.currentResult}",
+                            attachmentsPattern: '**/target/surefire-reports/*.txt'
+                        )
+                    }
                 }
             }
         }
@@ -41,7 +49,7 @@ pipeline {
                 echo "Stage 3: Code Analysis - Analyzing code quality."
                 echo "Tool: SonarQube"
                 echo "Running static code analysis..."
-                // Example code analysis command (not executed)
+                // Example code analysis command
                 // sh 'mvn sonar:sonar'
             }
             post {
