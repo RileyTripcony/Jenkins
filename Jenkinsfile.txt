@@ -36,8 +36,6 @@ pipeline {
                     mail to: "triptripcony@gmail.com",
                              subject: "Test Status",
                              body: "Unit and integration tests completed. Please check the logs.",
-                             attachmentsPattern: '**/target/surefire-reports/*.xml',
-                             mimeType: 'text/plain'
                 }
             }
         }
@@ -53,8 +51,6 @@ pipeline {
                     mail to: "triptripcony@gmail.com",
                              subject: "Code Analysis Status",
                              body: "Code analysis completed. Please check the logs.",
-                             attachmentsPattern: '**/sonar-reports/*.xml',
-                             mimeType: 'text/plain'
                 }
             }
         }
@@ -70,8 +66,6 @@ pipeline {
                     mail to: "triptripcony@gmail.com",
                              subject: "Security Scan Status",
                              body: "Security scan completed. Please check the logs.",
-                             attachmentsPattern: '**/dependency-check-report.xml',
-                             mimeType: 'text/plain'
                 }
             }
         }
