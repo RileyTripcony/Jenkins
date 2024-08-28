@@ -2,95 +2,97 @@ pipeline {
     agent any
     
     environment {
-        DIRECTORY_PATH = 'C:\\Users\\Riley\\JenkinsGithub\\jenkinsfile.txt'
+        GITHUB_REPO_URL = 'https://github.com/RileyTripcony/JenkinsPipelineDemo.git'
         TESTING_ENVIRONMENT = 'Jenkins'
-        PRODUCTION_ENVIRONMENT = 'Riley'
+        PRODUCTION_ENVIRONMENT = 'ProductionServer'
     }
     
     stages {
-       stage('Build') {
+        stage('Build') {
             steps {
-                echo "Build started!"
-                echo "Fetching source code from the directory: ${env.DIRECTORY_PATH}"
-                echo "Compiling the code and packaging using Maven"
-                // Example Maven build command sh 'mvn clean package'
-                echo "Build completed!"
-            }
-            post {
-                success {
-                    mail to: "triptripcony@gmail.com",
-                             subject: "Build Status: SUCCESS",
-                             body: "The build stage was successful."
-                }
+                echo "Stage 1: Build - Building the code using Maven."
+                echo "Tool: Maven"
+                echo "Fetching source code from ${env.GITHUB_REPO_URL}"
+                echo "Compiling the code and packaging..."
+                // Example build command (not executed)
+                // sh 'mvn clean package'
             }
         }
         
         stage('Unit and Integration Tests') {
             steps {
-                echo "Running unit and integration tests!"
-                // Example test command sh 'mvn test'
-                echo "Testing completed!"
+                echo "Stage 2: Unit and Integration Tests - Running unit and integration tests."
+                echo "Tools: JUnit for unit testing, TestNG for integration testing"
+                echo "Executing test suites..."
+                // Example test command (not executed)
+                // sh 'mvn test'
             }
             post {
                 always {
                     mail to: "triptripcony@gmail.com",
-                             subject: "Test Status",
-                             body: "Unit and integration tests completed. Please check the logs.",
+                         subject: "Test Stage Status",
+                         body: "Unit and integration tests completed with status: ${currentBuild.currentResult}"
                 }
             }
         }
         
         stage('Code Analysis') {
             steps {
-                echo "Running code quality analysis using SonarQube!"
-                // Example SonarQube analysis command sh 'mvn sonar:sonar'
-                echo "Code analysis completed!"
+                echo "Stage 3: Code Analysis - Analyzing code quality."
+                echo "Tool: SonarQube"
+                echo "Running static code analysis..."
+                // Example code analysis command (not executed)
+                // sh 'mvn sonar:sonar'
             }
             post {
                 always {
                     mail to: "triptripcony@gmail.com",
-                             subject: "Code Analysis Status",
-                             body: "Code analysis completed. Please check the logs.",
+                         subject: "Code Analysis Status",
+                         body: "Code analysis completed with status: ${currentBuild.currentResult}"
                 }
             }
         }
         
         stage('Security Scan') {
             steps {
-                echo "Running security scan using OWASP Dependency-Check!"
-                // Example security scan command sh 'mvn dependency-check:check'
-                echo "Security scan completed!"
+                echo "Stage 4: Security Scan - Scanning code for security vulnerabilities."
+                echo "Tool: OWASP Dependency-Check"
+                echo "Performing security scan..."
+                // Example security scan command (not executed)
+                // sh 'mvn dependency-check:check'
             }
             post {
                 always {
                     mail to: "triptripcony@gmail.com",
-                             subject: "Security Scan Status",
-                             body: "Security scan completed. Please check the logs.",
+                         subject: "Security Scan Status",
+                         body: "Security scan completed with status: ${currentBuild.currentResult}"
                 }
             }
         }
         
         stage('Deploy to Staging') {
             steps {
-                echo "Deploying application to staging environment: ${env.TESTING_ENVIRONMENT}"
-                // Example deployment command sh 'scp target/*.war user@staging-server:/path/to/deploy'
-                echo "Deployment to staging completed!"
+                echo "Stage 5: Deploy to Staging - Deploying application to staging environment."
+                echo "Environment: ${env.TESTING_ENVIRONMENT}"
+                // Example deployment command (not executed)
+                // sh 'scp target/*.war user@staging-server:/path/to/deploy'
             }
         }
         
         stage('Integration Tests on Staging') {
             steps {
-                echo "Running integration tests on staging environment!"
-                // Example command for integration tests on staging sh 'curl -X GET http://staging-server/api/test'
-                echo "Integration testing on staging completed!"
+                echo "Stage 6: Integration Tests on Staging - Running tests in staging environment."
+                // Example integration test command (not executed)
+                // sh 'curl -X GET http://staging-server/api/test'
             }
         }
         
         stage('Deploy to Production') {
             steps {
-                echo "Deploying application to production environment: ${env.PRODUCTION_ENVIRONMENT}"
-                // Example deployment command sh 'scp target/*.war user@production-server:/path/to/deploy'
-                echo "Deployment to production completed!"
+                echo "Stage 7: Deploy to Production - Deploying application to production server."
+                echo "Environment: ${env.PRODUCTION_ENVIRONMENT}"
+                // Example production deployment command (not executed)
+                // sh 'scp target/*.war user@production-server:/path/to/deploy'
             }
         }
     }
