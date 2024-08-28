@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     environment {
-        GITHUB_REPO_URL = 'https://github.com/YourRepo/Project.git'
-        STAGING_ENVIRONMENT = 'StagingServer'
+        GITHUB_REPO_URL = 'https://github.com/RileyTripcony/Jenkins.git'
+        STAGING_ENVIRONMENT = '6.1'
         PRODUCTION_ENVIRONMENT = 'ProductionServer'
         RECIPIENT_EMAIL = 'triptripcony@example.com'
     }
