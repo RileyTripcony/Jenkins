@@ -18,7 +18,7 @@ pipeline {
             }
             post {
                 success {
-                    emailext to: "triptripcony@gmail.com",
+                    mail to: "triptripcony@gmail.com",
                              subject: "Build Status: SUCCESS",
                              body: "The build stage was successful."
                 }
@@ -33,7 +33,7 @@ pipeline {
             }
             post {
                 always {
-                    emailext to: "triptripcony@gmail.com",
+                    mail to: "triptripcony@gmail.com",
                              subject: "Test Status",
                              body: "Unit and integration tests completed. Please check the logs.",
                              attachmentsPattern: '**/target/surefire-reports/*.xml',
@@ -50,7 +50,7 @@ pipeline {
             }
             post {
                 always {
-                    emailext to: "triptripcony@gmail.com",
+                    mail to: "triptripcony@gmail.com",
                              subject: "Code Analysis Status",
                              body: "Code analysis completed. Please check the logs.",
                              attachmentsPattern: '**/sonar-reports/*.xml',
@@ -67,7 +67,7 @@ pipeline {
             }
             post {
                 always {
-                    emailext to: "triptripcony@gmail.com",
+                    mail to: "triptripcony@gmail.com",
                              subject: "Security Scan Status",
                              body: "Security scan completed. Please check the logs.",
                              attachmentsPattern: '**/dependency-check-report.xml',
