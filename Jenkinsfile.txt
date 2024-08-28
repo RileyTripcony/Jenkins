@@ -3,8 +3,8 @@ pipeline {
     
     environment {
         GITHUB_REPO_URL = 'https://github.com/RileyTripcony/Jenkins.git'
-        STAGING_ENVIRONMENT = '6.1'
-        PRODUCTION_ENVIRONMENT = 'ProductionServer'
+        STAGING_ENVIRONMENT = 'AWS EC2 6.1C'
+        PRODUCTION_ENVIRONMENT = 'AWS EC2 ProductionServer'
         RECIPIENT_EMAIL = 'triptripcony@example.com'
     }
     
@@ -18,8 +18,8 @@ pipeline {
         
         stage('Unit and Integration Tests') {
             steps {
-                echo "Stage 2: Unit and Integration Tests - Running unit tests with JUnit and integration tests with TestNG."
-                echo "Tools: JUnit, TestNG"
+                echo "Stage 2: Unit and Integration Tests - Running unit tests with JUnit and integration tests with TestComplete."
+                echo "Tools: JUnit, TestComplete"
             }
             post {
                 always {
@@ -37,15 +37,15 @@ pipeline {
         
         stage('Code Analysis') {
             steps {
-                echo "Stage 3: Code Analysis - Analyzing code quality using SonarQube."
-                echo "Tool: SonarQube"
+                echo "Stage 3: Code Analysis - Analyzing code quality using PMD."
+                echo "Tool: PMD"
             }
         }
         
         stage('Security Scan') {
             steps {
-                echo "Stage 4: Security Scan - Scanning for security vulnerabilities using OWASP Dependency-Check."
-                echo "Tool: OWASP Dependency-Check"
+                echo "Stage 4: Security Scan - Scanning for security vulnerabilities using Spectral."
+                echo "Tool: Spectral"
             }
             post {
                 always {
@@ -65,6 +65,7 @@ pipeline {
             steps {
                 echo "Stage 5: Deploy to Staging - Deploying the application to the staging server."
                 echo "Environment: ${env.STAGING_ENVIRONMENT}"
+                echo "Amazon EC2 key pair authenticated."
             }
         }
         
@@ -78,6 +79,7 @@ pipeline {
             steps {
                 echo "Stage 7: Deploy to Production - Deploying the application to the production server."
                 echo "Environment: ${env.PRODUCTION_ENVIRONMENT}"
+                echo "Amazon EC2 key pair authenticated."
             }
         }
     }
