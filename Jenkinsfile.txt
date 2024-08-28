@@ -37,7 +37,7 @@ pipeline {
                             to: "triptripcony@gmail.com",
                             subject: "Test Stage Status - ${currentBuild.currentResult}",
                             body: "Unit and integration tests completed with status: ${currentBuild.currentResult}",
-                            attachLog:
+                            attachLog: true
                         )
                     }
                 }
