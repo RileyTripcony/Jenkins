@@ -22,11 +22,6 @@ pipeline {
                              subject: "Build Status: SUCCESS",
                              body: "The build stage was successful."
                 }
-                failure {
-                    emailext to: "triptripcony@gmail.com",
-                             subject: "Build Status: FAILURE",
-                             body: "The build stage failed."
-                }
             }
         }
         
